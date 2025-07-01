@@ -2,6 +2,7 @@
 using System.Dynamic;
 using System.Numerics;
 using System.Reflection;
+using Calculator.Enum;
 
 namespace Calculator
 {
@@ -9,107 +10,84 @@ namespace Calculator
     {
         static void Main(string[] args)
         {
-            //Soma();
+            Menu();
         }
 
-        static void CalculaValor(string operador)
+        static void Menu()
         {
             Console.Clear();
-            Console.WriteLine("Primeiro Valor: ");
-            //Validar a Entrada do Primeiro Valor (Verificar se não esta vazia)
-            float v1 = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("Segundo Valor: ");
-            //Validar a Entrada do Segundo Valor (Verificar se não esta vazia)
-            float v2 = float.Parse(Console.ReadLine());
-
-            float resultado;
-            switch (operador)
+            Console.WriteLine("O que você deseja fazer?");
+            Console.WriteLine("1 - Adição");
+            Console.WriteLine("2 - Subtração");
+            Console.WriteLine("3 - Multiplicação");
+            Console.WriteLine("4 - Divisão");
+            Console.WriteLine("--------------------");
+            Console.WriteLine("Selecione uma opção:");
+            
+            string? inputMenu = Console.ReadLine();
+            while (String.IsNullOrEmpty(inputMenu))
             {
-                case "+":
+                Console.WriteLine("É obrigatorio selecionar uma opção:");
+                Console.WriteLine("1 - Adição");
+                Console.WriteLine("2 - Subtração");
+                Console.WriteLine("3 - Multiplicação");
+                Console.WriteLine("4 - Divisão");
+                Console.WriteLine("--------------------");
+                Console.WriteLine("Selecione uma opção:");
+                inputMenu = Console.ReadLine();
+            }
+
+            int operador = int.Parse(inputMenu);
+            CalculaValor((EOperadorMatematico)operador);
+        }
+
+        static void CalculaValor(EOperadorMatematico operacao)
+        {
+            Console.Clear();
+            Console.WriteLine("Informe o primeiro valor:");
+
+            string? inputV1 = Console.ReadLine();
+            while (String.IsNullOrEmpty(inputV1))
+            {
+                Console.WriteLine("É obrigatorio informar o primeiro valor:");
+                inputV1 = Console.ReadLine();
+            }
+
+            Console.WriteLine("Informe o segundo valor:");
+            string? inputV2 = Console.ReadLine();
+            while (String.IsNullOrEmpty(inputV2))
+            {
+                Console.WriteLine("É obrigatorio informar o segundo valor:");
+                inputV2 = Console.ReadLine();
+            }
+            
+            float v1 = float.Parse(inputV1);
+            float v2 = float.Parse(inputV2);
+            float resultado;
+
+            switch (operacao)
+            {
+                case EOperadorMatematico.adicao:
                     resultado = v1 + v2;
                     break;
-                case "-":
+                case EOperadorMatematico.subtracao:
                     resultado = v1 - v2;
                     break;
-                case "*":
+                case EOperadorMatematico.multiplicacao:
                     resultado = v1 * v2;
                     break;
-                case "/":
+                case EOperadorMatematico.divisao:
                     resultado = v1 / v2;
                     break;
                 default:
+                    resultado = 0f;
                     break;
             }
 
             Console.WriteLine("");
-            Console.WriteLine($"O resultado da subtração é {v1 / v2}");
+            Console.WriteLine($"O resultado da {operacao} é {resultado}");
             Console.ReadKey();
-        }
-
-        static void Soma()
-        {
-            Console.Clear();
-            Console.WriteLine("Primeiro Valor: ");
-            //Validar a Entrada do Primeiro Valor (Verificar se não esta vazia)
-            float v1 = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("Segundo Valor: ");
-            //Validar a Entrada do Segundo Valor (Verificar se não esta vazia)
-            float v2 = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("");
-            Console.WriteLine($"O resultado da soma é {v1 + v2}");
-            Console.ReadKey();
-        }
-
-        static void Subtracao()
-        {
-            Console.Clear();
-            Console.WriteLine("Primeiro Valor: ");
-            //Validar a Entrada do Primeiro Valor (Verificar se não esta vazia)
-            float v1 = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("Segundo Valor: ");
-            //Validar a Entrada do Segundo Valor (Verificar se não esta vazia)
-            float v2 = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("");
-            Console.WriteLine($"O resultado da subtração é {v1 - v2}");
-            Console.ReadKey();
-        }
-
-        static void Divisao()
-        {
-            Console.Clear();
-            Console.WriteLine("Primeiro Valor: ");
-            //Validar a Entrada do Primeiro Valor (Verificar se não esta vazia)
-            float v1 = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("Segundo Valor: ");
-            //Validar a Entrada do Segundo Valor (Verificar se não esta vazia)
-            float v2 = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("");
-            Console.WriteLine($"O resultado da subtração é {v1 / v2}");
-            Console.ReadKey();
-        }
-
-        static void Multiplicacao()
-        {
-            Console.Clear();
-            Console.WriteLine("Primeiro Valor: ");
-            //Validar a Entrada do Primeiro Valor (Verificar se não esta vazia)
-            float v1 = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("Segundo Valor: ");
-            //Validar a Entrada do Segundo Valor (Verificar se não esta vazia)
-            float v2 = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("");
-            Console.WriteLine($"O resultado da subtração é {v1 * v2}");
-            Console.ReadKey();
-        }        
+        }      
     }
 }
 
